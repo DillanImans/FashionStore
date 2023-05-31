@@ -1,5 +1,5 @@
 # OnidesJava
-![Preview](https://github.com/DillanImans/onidesJava/blob/master/screenshot.png))
+![Preview](https://github.com/DillanImans/onidesJava/blob/master/screenshot.png)
 
 ### Project Desc
 An online fashion store app made in Java.
