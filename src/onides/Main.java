@@ -46,6 +46,8 @@ import java.awt.Panel;
 
 import com.formdev.flatlaf.*;
 import java.util.ArrayList;
+import java.util.List;
+
 import javax.swing.JScrollPane;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.JTextArea;
@@ -64,6 +66,31 @@ public class Main extends JFrame {
 	public Outerwear chosenOuterwear;
 	public Hats chosenHat;
 	public int numberOnlyForPrice;
+	
+	// The default & stock array
+	// Stock amount of each product and price of each product are editable through manager.
+    private ArrayList<Shirt> shirtArr = FashionData.shirtArr;
+    private ArrayList<Trousers> trouserArr = FashionData.trouserArr;
+    private ArrayList<Outerwear> outerwearArr = FashionData.outerwearArr;
+    private ArrayList<Hats> hatArr = FashionData.hatArr;
+	
+	// The shopping cart array, where products in the shopping cart are added here
+	// Editable through clearing or purchasing in shopping cart tab
+	private ArrayList<Shirt> shoppingCartShirtArr = new ArrayList<>();
+	private ArrayList<Trousers> shoppingCartTrouserArr = new ArrayList<>();
+	private ArrayList<Outerwear> shoppingCartOuterwearArr = new ArrayList<>();
+	private ArrayList<Hats> shoppingCartHatArr = new ArrayList<>();
+	
+	// All purchased products will go in here. Will always show values in manager's history sales tab.
+	private ArrayList<Shirt> boughtShirtArr = new ArrayList<>();
+	private ArrayList<Trousers> boughtTrouserArr = new ArrayList<>();
+	private ArrayList<Outerwear> boughtOuterwearArr = new ArrayList<>();
+	private ArrayList<Hats> boughtHatArr = new ArrayList<>();
+	
+	
+	// For the specific category panel (creating panels)
+	private ArrayList<JPanel> panelList = new ArrayList<>();
+	
 	
 	// UI Components
 	private JPanel backgroundPane;
@@ -803,90 +830,9 @@ public class Main extends JFrame {
 		
 		
 		// Initialize Manager and Items Array
-		ManagerAccount manager1 = new ManagerAccount("managerUsername123", "managerPassword456");
-		
-		// The default & stock array
-		// Stock amount of each product and price of each product are editable through manager.
-		ArrayList<Shirt> shirtArr = new ArrayList<>();
-		ArrayList<Trousers> trouserArr = new ArrayList<>();
-		ArrayList<Outerwear> outerwearArr = new ArrayList<>();
-		ArrayList<Hats> hatArr = new ArrayList<>();
-		
-		// The shopping cart array, where products in the shopping cart are added here
-		// Editable through clearing or purchasing in shopping cart tab
-		ArrayList<Shirt> shoppingCartShirtArr = new ArrayList<>();
-		ArrayList<Trousers> shoppingCartTrouserArr = new ArrayList<>();
-		ArrayList<Outerwear> shoppingCartOuterwearArr = new ArrayList<>();
-		ArrayList<Hats> shoppingCartHatArr = new ArrayList<>();
-		
-		// All purchased products will go in here. Will always show values in manager's history sales tab.
-		ArrayList<Shirt> boughtShirtArr = new ArrayList<>();
-		ArrayList<Trousers> boughtTrouserArr = new ArrayList<>();
-		ArrayList<Outerwear> boughtOuterwearArr = new ArrayList<>();
-		ArrayList<Hats> boughtHatArr = new ArrayList<>();
-		
-		
-		
-//		FashionItem(String image, String name, int stockAmount,
-//				String description,	int basePrice, String chosenType){
-//				this.image = image;
-//				this.name = name;
-//				this.stockAmount = stockAmount;
-//				this.description = description;
-//				this.basePrice = basePrice;
-//				this.chosenType = chosenType;
-//			}
-			
-		
-		
-		// Filling Shirt Arr
-		shirtArr.add(new Shirt("image", "White Basque", 20, "A crisp and versatile white shirt, exuding timeless charm and a sense of effortless sophistication.",
-				15, "polyester"));
-		shirtArr.add(new Shirt("image", "Blue Maple", 7, "A timeless classic, this blue shirt effortlessly combines sophistication"
-				+ " with a touch of casual elegance.", 30, "polyester"));
-		shirtArr.add(new Shirt("image", "Maroon Elix", 5, "A rich and regal maroon shirt that commands attention, blending elegance with a touch of boldness.",
-				30, "polyester"));
-		shirtArr.add(new Shirt("image", "Polymorphic Fling", 1, "A vibrant and stylish shirt featuring a mesmerizing fusion of bold colors and intricate patterns."
-				, 100, "polyester"));
-		
-		
-		// Filling Trouser Arr
-		trouserArr.add(new Trousers("image", "Casual Black", 14, "Comfort meets versatility in these simple black pants, perfect for casual outings or athletic activities.",
-				30, "cotton"));
-		trouserArr.add(new Trousers("image", "Gray Grid", 4, "Elevate your style with these sleek and sophisticated gray pants, blending timeless elegance with a modern twist.",
-				50, "cotton"));
-		trouserArr.add(new Trousers("image", "Luxurious Golden Shay", 0, "Dazzle with opulence in these luxurious golden pants, exuding a glamorous and radiant allure that steals the spotlight.",
-				200, "cotton"));
-		trouserArr.add(new Trousers("image", "Blue Floo", 2, "Unleash your bold sense of style with our striking blue trousers, crafted with intricate details and a touch of contemporary flair to make a standout fashion statement.",
-				100, "cotton"));
+		ManagerAccount manager1 = new ManagerAccount("managerUsername123", "managerPassword456");	
 
-		
-		// Filling Outerwear Arr
-		outerwearArr.add(new Outerwear("image", "Blending Puffer Jacket", 4, "Embrace warmth and style with this cozy puffer jacket, designed to keep you snug while effortlessly enhancing your winter wardrobe.",
-				60, "pre-made"));
-		outerwearArr.add(new Outerwear("image", "Biker Leather Jacket", 2, "Unleash your inner rebel with this edgy biker leather jacket, exuding an aura of confidence and timeless cool.",
-				100, "pre-made"));
-		outerwearArr.add(new Outerwear("image", "Trench Coat", 1, "Step out in classic elegance with this sophisticated trench coat, a versatile and timeless staple that exudes refinement and style.",
-				400, "pre-made"));
-		outerwearArr.add(new Outerwear("image", "Quilted Vest", 0, "Stay stylish and cozy with our quilted vest, featuring a perfect blend of warmth, comfort, and fashion-forward design.",
-				150, "pre-made"));
-
-
-		// Filling Hat Arr
-		hatArr.add(new Hats("image", "Baseball cap", 5, "Top off your casual look with this sporty baseball cap, combining comfort and style for a laid-back yet fashionable statement.",
-				30, "pre-made"));
-		hatArr.add(new Hats("image", "Fedora", 2, "Channel your individuality with this uniquely crafted fedora, blending vintage allure with contemporary flair to create a head-turning statement piece.",
-				30, "pre-made"));
-		hatArr.add(new Hats("image", "Flat cap", 10, "Add a touch of refined flair to your outfit with this distinguished flat cap, a perfect fusion of timeless style and contemporary panache.",
-				30, "pre-made"));
-		hatArr.add(new Hats("image", "The Bautta", 0, "Exude mystery and intrigue with the iconic Bautta mask, an ancient Venetian symbol of elegance and anonymity.",
-				300, "pre-made"));
-		
-		
-		// For the specific category panel (creating panels)
-		ArrayList<JPanel> panelList = new ArrayList<>();
-
-		for (int i = 0; i < 6; i++) {
+		for (int i = 0; i < 4; i++) {
 		    JPanel scPanel = new JPanel();
 		    scPanel.setBackground(new Color(255, 255, 255));
 		    scPanel.setLayout(null);
@@ -910,94 +856,43 @@ public class Main extends JFrame {
 		    scPanel.addMouseListener(new MouseAdapter() {
 		        @Override
 		        public void mouseClicked(MouseEvent e) {
-		        	if(specificCategoryTitle.getText().equals("Hats")) {
-		        		JLabel chosenLabel = (JLabel) scPanel.getComponent(1);
-		        		for(int i = 0; i < 4; i++) {
-		        			if(chosenLabel.getText().equals(hatArr.get(i).getName())) {
-		        				tabPanel.setSelectedIndex(2);
-		        				chosenHat = hatArr.get(i);
-		        				
-		        				viewingProductImage.setText(chosenHat.getImage());
-		        				viewingProductName.setText(chosenHat.getName());
-		        				viewingProductStock.setText("Stock left: " + String.valueOf(chosenHat.getStockAmount()));
-		        				viewingProductDesc.setText(chosenHat.getDescription());
-		        				viewingProductPrice.setText("Price: $" + String.valueOf(chosenHat.getBasePrice()));
-		        				viewingProductType1.setText("three-d printed (+$0)");
-		        				viewingProductType2.setText("machine sewn (+$10)");
-		        				viewingProductType3.setText("handmade (+$30)");
-		        				viewingProductType1.setSelected(true);
-		        				viewingProductType2.setSelected(false);
-		        				viewingProductType3.setSelected(false);
-		        				numberOnlyForPrice = chosenHat.getBasePrice();
-		        				break;
-		        			}
-		        		}
-		        	} else if(specificCategoryTitle.getText().equals("Trousers")) {
-		        		JLabel chosenLabel = (JLabel) scPanel.getComponent(1);
-		        		for(int i = 0; i < 4; i++) {
-		        			if(chosenLabel.getText().equals(trouserArr.get(i).getName())) {
-		        				tabPanel.setSelectedIndex(2);
-		        				chosenTrouser = trouserArr.get(i);
-		        				
-		        				viewingProductImage.setText(chosenTrouser.getImage());
-		        				viewingProductName.setText(chosenTrouser.getName());
-		        				viewingProductStock.setText("Stock left: " + String.valueOf(chosenTrouser.getStockAmount()));
-		        				viewingProductDesc.setText(chosenTrouser.getDescription());
-		        				viewingProductPrice.setText("Price: $" + String.valueOf(chosenTrouser.getBasePrice()));
-		        				viewingProductType1.setText("cotton (+$0)");
-		        				viewingProductType2.setText("wool (+$20)");
-		        				viewingProductType3.setText("refined denim (+$40)");
-		        				viewingProductType1.setSelected(true);
-		        				viewingProductType2.setSelected(false);
-		        				viewingProductType3.setSelected(false);
-		        				numberOnlyForPrice = chosenTrouser.getBasePrice();
-		        				break;
-		        			}
-		        		}
-		        	} else if(specificCategoryTitle.getText().equals("Shirts")) {
-		        		JLabel chosenLabel = (JLabel) scPanel.getComponent(1);
-		        		for(int i = 0; i < 4; i++) {
-		        			if(chosenLabel.getText().equals(shirtArr.get(i).getName())) {
-		        				tabPanel.setSelectedIndex(2);
-		        				chosenShirt = shirtArr.get(i);
-		        				
-		        				viewingProductImage.setText(chosenShirt.getImage());
-		        				viewingProductName.setText(chosenShirt.getName());
-		        				viewingProductStock.setText("Stock left: " + String.valueOf(chosenShirt.getStockAmount()));
-		        				viewingProductDesc.setText(chosenShirt.getDescription());
-		        				viewingProductPrice.setText("Price: $" + String.valueOf(chosenShirt.getBasePrice()));
-		        				viewingProductType1.setText("polyester (+$0)");
-		        				viewingProductType2.setText("linen (+$15)");
-		        				viewingProductType3.setText("silk (+$30)");
-		        				viewingProductType1.setSelected(true);
-		        				viewingProductType2.setSelected(false);
-		        				viewingProductType3.setSelected(false);
-		        				numberOnlyForPrice = chosenShirt.getBasePrice();
-		        				break;
-		        			}
-		        		}
-		        	} else if(specificCategoryTitle.getText().equals("Outerwear")) {
-		        		JLabel chosenLabel = (JLabel) scPanel.getComponent(1);
-		        		for(int i = 0; i < 4; i++) {
-		        			if(chosenLabel.getText().equals(outerwearArr.get(i).getName())) {
-		        				tabPanel.setSelectedIndex(2);
-		        				chosenOuterwear = outerwearArr.get(i);
-		        				
-		        				viewingProductImage.setText(chosenOuterwear.getImage());
-		        				viewingProductName.setText(chosenOuterwear.getName());
-		        				viewingProductStock.setText("Stock left: " + String.valueOf(chosenOuterwear.getStockAmount()));
-		        				viewingProductDesc.setText(chosenOuterwear.getDescription());
-		        				viewingProductPrice.setText("Price: $" + String.valueOf(chosenOuterwear.getBasePrice()));
-		        				viewingProductType1.setText("pre-made (+$0)");
-		        				viewingProductType2.setText("junior tailored (+$20)");
-		        				viewingProductType3.setText("senior tailored (+$100)");
-		        				viewingProductType1.setSelected(true);
-		        				viewingProductType2.setSelected(false);
-		        				viewingProductType3.setSelected(false);
-		        				numberOnlyForPrice = chosenOuterwear.getBasePrice();
-		        			}
-		        		}
-		        	}
+		        	if (specificCategoryTitle.getText().equals("Hats")) {
+		                JLabel chosenLabel = (JLabel) scPanel.getComponent(1);
+		                for (int i = 0; i < 4; i++) {
+		                    if (chosenLabel.getText().equals(hatArr.get(i).getName())) {
+		                        chosenHat = hatArr.get(i);
+		                        setProductAttributes(hatArr, chosenHat);
+		                        break;
+		                    }
+		                }
+		            } else if (specificCategoryTitle.getText().equals("Trousers")) {
+		                JLabel chosenLabel = (JLabel) scPanel.getComponent(1);
+		                for (int i = 0; i < 4; i++) {
+		                    if (chosenLabel.getText().equals(trouserArr.get(i).getName())) {
+		                        chosenTrouser = trouserArr.get(i);
+		                        setProductAttributes(trouserArr, chosenTrouser);
+		                        break;
+		                    }
+		                }
+		            } else if (specificCategoryTitle.getText().equals("Shirts")) {
+		                JLabel chosenLabel = (JLabel) scPanel.getComponent(1);
+		                for (int i = 0; i < 4; i++) {
+		                    if (chosenLabel.getText().equals(shirtArr.get(i).getName())) {
+		                        chosenShirt = shirtArr.get(i);
+		                        setProductAttributes(shirtArr, chosenShirt);
+		                        break;
+		                    }
+		                }
+		            } else if (specificCategoryTitle.getText().equals("Outerwear")) {
+		                JLabel chosenLabel = (JLabel) scPanel.getComponent(1);
+		                for (int i = 0; i < 4; i++) {
+		                    if (chosenLabel.getText().equals(outerwearArr.get(i).getName())) {
+		                        chosenOuterwear = outerwearArr.get(i);
+		                        setProductAttributes(outerwearArr, chosenOuterwear);
+		                        break;
+		                    }
+		                }
+		            }
 		        }
 		    });
 		}
@@ -1041,154 +936,10 @@ public class Main extends JFrame {
 		});
 		
 		// If categorieshats is pressed, show the hats panels (same goes for other categories)
-		categoriesHatsBtn.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				tabPanel.setSelectedIndex(3);
-				specificCategoryTitle.setText("Hats");
-				
-				for(int i = 0; i < 4; i++) {
-					String productImage = "";
-					String productName = "";
-					
-					JPanel panel = panelList.get(i);
-					JLabel scPanelImage = (JLabel) panel.getComponent(0);
-					JLabel scName = (JLabel) panel.getComponent(1);
-					scPanelImage.setText(productImage);
-					scName.setText(productName);
-					specificCategoryMainPanel.add(panel);
-					
-				}
-				
-				for(int i = 0; i < hatArr.size(); i++) {
-					String productImage = hatArr.get(i).getImage();
-					String productName = hatArr.get(i).getName();
-					
-					JPanel panel = panelList.get(i);
-					JLabel scPanelImage = (JLabel) panel.getComponent(0);
-					JLabel scName = (JLabel) panel.getComponent(1);
-					scPanelImage.setText(productImage);
-					scName.setText(productName);
-					specificCategoryMainPanel.add(panel);
-					
-				}
-				
-				// Revalidate and repaint the container
-				specificCategoryMainPanel.revalidate();
-				specificCategoryMainPanel.repaint();
-			}
-		});
-		
-		categoriesShirtsBtn.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				tabPanel.setSelectedIndex(3);
-				specificCategoryTitle.setText("Shirts");
-				
-				for(int i = 0; i < 4; i++) {
-					String productImage = "";
-					String productName = "";
-					
-					JPanel panel = panelList.get(i);
-					JLabel scPanelImage = (JLabel) panel.getComponent(0);
-					JLabel scName = (JLabel) panel.getComponent(1);
-					scPanelImage.setText(productImage);
-					scName.setText(productName);
-					specificCategoryMainPanel.add(panel);
-					
-				}
-				
-				for(int i = 0; i < shirtArr.size(); i++) {
-					String productImage = shirtArr.get(i).getImage();
-					String productName = shirtArr.get(i).getName();
-					
-					JPanel panel = panelList.get(i);
-					JLabel scPanelImage = (JLabel) panel.getComponent(0);
-					JLabel scName = (JLabel) panel.getComponent(1);
-					scPanelImage.setText(productImage);
-					scName.setText(productName);
-					specificCategoryMainPanel.add(panel);
-					
-				}
-				
-				// Revalidate and repaint the container
-				specificCategoryMainPanel.revalidate();
-				specificCategoryMainPanel.repaint();
-			}
-		});
-		
-		categoriesTrousersBtn.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				tabPanel.setSelectedIndex(3);
-				specificCategoryTitle.setText("Trousers");
-				
-				for(int i = 0; i < 4; i++) {
-					String productImage = "";
-					String productName = "";
-					
-					JPanel panel = panelList.get(i);
-					JLabel scPanelImage = (JLabel) panel.getComponent(0);
-					JLabel scName = (JLabel) panel.getComponent(1);
-					scPanelImage.setText(productImage);
-					scName.setText(productName);
-					specificCategoryMainPanel.add(panel);
-					
-				}
-				
-				for(int i = 0; i < trouserArr.size(); i++) {
-					String productImage = trouserArr.get(i).getImage();
-					String productName = trouserArr.get(i).getName();
-					
-					JPanel panel = panelList.get(i);
-					JLabel scPanelImage = (JLabel) panel.getComponent(0);
-					JLabel scName = (JLabel) panel.getComponent(1);
-					scPanelImage.setText(productImage);
-					scName.setText(productName);
-					specificCategoryMainPanel.add(panel);
-					
-				}
-				
-				// Revalidate and repaint the container
-				specificCategoryMainPanel.revalidate();
-				specificCategoryMainPanel.repaint();
-			
-			}
-		});
-		
-		categoriesOutwearBtn.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				tabPanel.setSelectedIndex(3);
-				specificCategoryTitle.setText("Outerwear");
-				
-				for(int i = 0; i < 4; i++) {
-					String productImage = "";
-					String productName = "";
-					
-					JPanel panel = panelList.get(i);
-					JLabel scPanelImage = (JLabel) panel.getComponent(0);
-					JLabel scName = (JLabel) panel.getComponent(1);
-					scPanelImage.setText(productImage);
-					scName.setText(productName);
-					specificCategoryMainPanel.add(panel);
-					
-				}
-				
-				for(int i = 0; i < outerwearArr.size(); i++) {
-					String productImage = outerwearArr.get(i).getImage();
-					String productName = outerwearArr.get(i).getName();
-					
-					JPanel panel = panelList.get(i);
-					JLabel scPanelImage = (JLabel) panel.getComponent(0);
-					JLabel scName = (JLabel) panel.getComponent(1);
-					scPanelImage.setText(productImage);
-					scName.setText(productName);
-					specificCategoryMainPanel.add(panel);
-					
-				}
-				
-				// Revalidate and repaint the container
-				specificCategoryMainPanel.revalidate();
-				specificCategoryMainPanel.repaint();
-			}
-		});
+        categoriesHatsBtn.addActionListener(new CategoryButtonListener("Hats", hatArr));
+        categoriesShirtsBtn.addActionListener(new CategoryButtonListener("Shirts", shirtArr));
+        categoriesTrousersBtn.addActionListener(new CategoryButtonListener("Trousers", trouserArr));
+        categoriesOutwearBtn.addActionListener(new CategoryButtonListener("Outerwear", outerwearArr));
 		
 		
 		
@@ -1247,6 +998,9 @@ public class Main extends JFrame {
 		});
 		
 		// Add to Cart button in product view
+		
+		// NOTE: THE ONLY UNREFACTORED CODE IS THE ONE BELOW (productViewCartBtn).
+		// It is very confusing to refactor.
 		productViewCartBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
@@ -1489,74 +1243,37 @@ public class Main extends JFrame {
 		
 		// Clear shopping cart
 		shoppingCartClearBtn.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				// To clear everything visually
-				while (shoppingCartModel.getRowCount() > 0) {
+		    public void actionPerformed(ActionEvent e) {
+		        // To clear everything visually
+		        while (shoppingCartModel.getRowCount() > 0) {
 		            shoppingCartModel.removeRow(0);
 		        }
-				
-				// Clear all Shopping Cart Arrays & Return all Stock (Hat)
-				for(int i = 0; i < shoppingCartHatArr.size(); i++) {
-					for(int j = 0; j < hatArr.size(); j++) {
-						if(shoppingCartHatArr.get(i).getName().equals(hatArr.get(j).getName())) {
-							hatArr.get(j).setStockAmount(hatArr.get(j).getStockAmount() + 1);
-							break;
-						}
-					}
-				}
-				
-				shoppingCartHatArr.clear();
-				
-				
-				// Clear all Shopping Cart Arrays & Return all Stock (Shirt)
-				for(int i = 0; i < shoppingCartShirtArr.size(); i++) {
-					for(int j = 0; j < shirtArr.size(); j++) {
-						if(shoppingCartShirtArr.get(i).getName().equals(shirtArr.get(j).getName())) {
-							shirtArr.get(j).setStockAmount(shirtArr.get(j).getStockAmount() + 1);
-							break;
-						}
-					}
-				}
-				
-				shoppingCartShirtArr.clear();
-				
-				
-				// Clear all Shopping Cart Arrays & Return all Stock (Trouser)
-				for(int i = 0; i < shoppingCartTrouserArr.size(); i++) {
-					for(int j = 0; j < trouserArr.size(); j++) {
-						if(shoppingCartTrouserArr.get(i).getName().equals(trouserArr.get(j).getName())) {
-							trouserArr.get(j).setStockAmount(trouserArr.get(j).getStockAmount() + 1);
-							break;
-						}
-					}
-				}
-				
-				shoppingCartTrouserArr.clear();
-				
-				
-				// Clear all Shopping Cart Arrays & Return all Stock (Outerwear)
-				for(int i = 0; i < shoppingCartOuterwearArr.size(); i++) {
-					for(int j = 0; j < outerwearArr.size(); j++) {
-						if(shoppingCartOuterwearArr.get(i).getName().equals(outerwearArr.get(j).getName())) {
-							outerwearArr.get(j).setStockAmount(outerwearArr.get(j).getStockAmount() + 1);
-							break;
-						}
-					}
-				}
-				
-				
-				shoppingCartOuterwearArr.clear();
-				
-				shoppingCartTotal.setText("Total: $0");
-				
-				if(!shoppingCartTotal.getText().equals("Total: $0")) {
-			        JOptionPane.showMessageDialog(null, "You have cleared your shopping cart.");
-				} else {
-					
-				}			
-				
-			}
+
+		        returnItemsToStock(shoppingCartHatArr, hatArr);
+		        returnItemsToStock(shoppingCartShirtArr, shirtArr);
+		        returnItemsToStock(shoppingCartTrouserArr, trouserArr);
+		        returnItemsToStock(shoppingCartOuterwearArr, outerwearArr);
+
+		        shoppingCartHatArr.clear();
+		        shoppingCartShirtArr.clear();
+		        shoppingCartTrouserArr.clear();
+		        shoppingCartOuterwearArr.clear();
+
+		        shoppingCartTotal.setText("Total: $0");
+		    }
+
+		    private void returnItemsToStock(List<? extends FashionItem> shoppingCartArr, List<? extends FashionItem> productArr) {
+		        for (FashionItem shoppingCartItem : shoppingCartArr) {
+		            for (FashionItem productItem : productArr) {
+		                if (shoppingCartItem.getName().equals(productItem.getName())) {
+		                    productItem.setStockAmount(productItem.getStockAmount() + 1);
+		                    break;
+		                }
+		            }
+		        }
+		    }
 		});
+
 		
 		// Confirm Purchase in Shopping Cart Tab
 		shoppingCartConfirmBtn.addActionListener(new ActionListener() {
@@ -1614,123 +1331,23 @@ public class Main extends JFrame {
 		
 		// Shopping Cart BTNS
 		
-		// Go to shopping cart tab (3 buttons, exact same code)
 		shoppingCartBtn.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				tabPanel.setSelectedIndex(4);
-				int totalPrice = 0;
-				
-				// To clear everything
-				while (shoppingCartModel.getRowCount() > 0) {
-		            shoppingCartModel.removeRow(0);
-		        }
-							
-				// To fill the table
-				for(int i = 0; i < shoppingCartHatArr.size(); i++) {
-					shoppingCartModel.addRow(new Object[] {"Hat", shoppingCartHatArr.get(i).getName(),
-							shoppingCartHatArr.get(i).getChosenType(), shoppingCartHatArr.get(i).getTotalCost()});
-					totalPrice += shoppingCartHatArr.get(i).getTotalCost();
-				}
-				for(int i = 0; i < shoppingCartShirtArr.size(); i++) {
-					shoppingCartModel.addRow(new Object[] {"Shirt", shoppingCartShirtArr.get(i).getName(),
-							shoppingCartShirtArr.get(i).getChosenType(), shoppingCartShirtArr.get(i).getTotalCost()});
-					totalPrice += shoppingCartShirtArr.get(i).getTotalCost();
-				}
-				for(int i = 0; i < shoppingCartTrouserArr.size(); i++) {
-					shoppingCartModel.addRow(new Object[] {"Trouser", shoppingCartTrouserArr.get(i).getName(),
-							shoppingCartTrouserArr.get(i).getChosenType(), shoppingCartTrouserArr.get(i).getTotalCost()});
-					totalPrice += shoppingCartTrouserArr.get(i).getTotalCost();
-				}
-				for(int i = 0; i < shoppingCartOuterwearArr.size(); i++) {
-					shoppingCartModel.addRow(new Object[] {"Outerwear", shoppingCartOuterwearArr.get(i).getName(),
-							shoppingCartOuterwearArr.get(i).getChosenType(), shoppingCartOuterwearArr.get(i).getTotalCost()});
-					totalPrice += shoppingCartOuterwearArr.get(i).getTotalCost();
-				}
-				
-				// To set the total price
-				shoppingCartTotal.setText("Total: $" + totalPrice);
-				
-			}
+		    public void actionPerformed(ActionEvent e) {
+		        showShoppingCart(shoppingCartModel);
+		    }
 		});
-		
+
 		shoppingCartBtn_1.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				tabPanel.setSelectedIndex(4);
-				
-				int totalPrice = 0;
-				
-				// To clear everything
-				while (shoppingCartModel.getRowCount() > 0) {
-		            shoppingCartModel.removeRow(0);
-		        }
-							
-				// To fill the table
-				for(int i = 0; i < shoppingCartHatArr.size(); i++) {
-					shoppingCartModel.addRow(new Object[] {"Hat", shoppingCartHatArr.get(i).getName(),
-							shoppingCartHatArr.get(i).getChosenType(), shoppingCartHatArr.get(i).getTotalCost()});
-					totalPrice += shoppingCartHatArr.get(i).getTotalCost();
-				}
-				for(int i = 0; i < shoppingCartShirtArr.size(); i++) {
-					shoppingCartModel.addRow(new Object[] {"Shirt", shoppingCartShirtArr.get(i).getName(),
-							shoppingCartShirtArr.get(i).getChosenType(), shoppingCartShirtArr.get(i).getTotalCost()});
-					totalPrice += shoppingCartShirtArr.get(i).getTotalCost();
-				}
-				for(int i = 0; i < shoppingCartTrouserArr.size(); i++) {
-					shoppingCartModel.addRow(new Object[] {"Trouser", shoppingCartTrouserArr.get(i).getName(),
-							shoppingCartTrouserArr.get(i).getChosenType(), shoppingCartTrouserArr.get(i).getTotalCost()});
-					totalPrice += shoppingCartTrouserArr.get(i).getTotalCost();
-				}
-				for(int i = 0; i < shoppingCartOuterwearArr.size(); i++) {
-					shoppingCartModel.addRow(new Object[] {"Outerwear", shoppingCartOuterwearArr.get(i).getName(),
-							shoppingCartOuterwearArr.get(i).getChosenType(), shoppingCartOuterwearArr.get(i).getTotalCost()});
-					totalPrice += shoppingCartOuterwearArr.get(i).getTotalCost();
-				}
-				
-				// To set the total price
-				shoppingCartTotal.setText("Total: $" + totalPrice);
-				
-			}
+		    public void actionPerformed(ActionEvent e) {
+		        showShoppingCart(shoppingCartModel);
+		    }
 		});
-		
+
 		shoppingCartBtn_2.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				tabPanel.setSelectedIndex(4);
-				
-				int totalPrice = 0;
-				
-				// To clear everything
-				while (shoppingCartModel.getRowCount() > 0) {
-		            shoppingCartModel.removeRow(0);
-		        }
-							
-				// To fill the table
-				for(int i = 0; i < shoppingCartHatArr.size(); i++) {
-					shoppingCartModel.addRow(new Object[] {"Hat", shoppingCartHatArr.get(i).getName(),
-							shoppingCartHatArr.get(i).getChosenType(), shoppingCartHatArr.get(i).getTotalCost()});
-					totalPrice += shoppingCartHatArr.get(i).getTotalCost();
-				}
-				for(int i = 0; i < shoppingCartShirtArr.size(); i++) {
-					shoppingCartModel.addRow(new Object[] {"Shirt", shoppingCartShirtArr.get(i).getName(),
-							shoppingCartShirtArr.get(i).getChosenType(), shoppingCartShirtArr.get(i).getTotalCost()});
-					totalPrice += shoppingCartShirtArr.get(i).getTotalCost();
-				}
-				for(int i = 0; i < shoppingCartTrouserArr.size(); i++) {
-					shoppingCartModel.addRow(new Object[] {"Trouser", shoppingCartTrouserArr.get(i).getName(),
-							shoppingCartTrouserArr.get(i).getChosenType(), shoppingCartTrouserArr.get(i).getTotalCost()});
-					totalPrice += shoppingCartTrouserArr.get(i).getTotalCost();
-				}
-				for(int i = 0; i < shoppingCartOuterwearArr.size(); i++) {
-					shoppingCartModel.addRow(new Object[] {"Outerwear", shoppingCartOuterwearArr.get(i).getName(),
-							shoppingCartOuterwearArr.get(i).getChosenType(), shoppingCartOuterwearArr.get(i).getTotalCost()});
-					totalPrice += shoppingCartOuterwearArr.get(i).getTotalCost();
-				}
-				
-				// To set the total price
-				shoppingCartTotal.setText("Total: $" + totalPrice);
-				
-			}
+		    public void actionPerformed(ActionEvent e) {
+		        showShoppingCart(shoppingCartModel);
+		    }
 		});
-		
 		
 		///
 
@@ -1789,140 +1406,75 @@ public class Main extends JFrame {
 		
 		// Go to check sales tab
 		managerCheckSalesBtn.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				tabPanel.setSelectedIndex(8);
-				
-				int totalRevenue = 0;
-				
-				// To clear everything
-				while (historySalesModel.getRowCount() > 0) {
+		    public void actionPerformed(ActionEvent e) {
+		        tabPanel.setSelectedIndex(8);
+
+		        int totalRevenue = 0;
+
+		        // To clear everything
+		        while (historySalesModel.getRowCount() > 0) {
 		            historySalesModel.removeRow(0);
 		        }
-							
-				// To fill the table (4 times)
-				for(int i = 0; i < boughtHatArr.size(); i++) {
-					historySalesModel.addRow(new Object[] {"Hat", boughtHatArr.get(i).getName(),
-							boughtHatArr.get(i).getChosenType(), boughtHatArr.get(i).getTotalCost()});
-					totalRevenue += boughtHatArr.get(i).getTotalCost();
-				}
-				for(int i = 0; i < boughtShirtArr.size(); i++) {
-					historySalesModel.addRow(new Object[] {"Shirt", boughtShirtArr.get(i).getName(),
-							boughtShirtArr.get(i).getChosenType(), boughtShirtArr.get(i).getTotalCost()});
-					totalRevenue += boughtShirtArr.get(i).getTotalCost();
-				}
-				for(int i = 0; i < boughtTrouserArr.size(); i++) {
-					historySalesModel.addRow(new Object[] {"Trouser", boughtTrouserArr.get(i).getName(),
-							boughtTrouserArr.get(i).getChosenType(), boughtTrouserArr.get(i).getTotalCost()});
-					totalRevenue += boughtTrouserArr.get(i).getTotalCost();
-				}
-				for(int i = 0; i < boughtOuterwearArr.size(); i++) {
-					historySalesModel.addRow(new Object[] {"Outerwear", boughtOuterwearArr.get(i).getName(),
-							boughtOuterwearArr.get(i).getChosenType(), boughtOuterwearArr.get(i).getTotalCost()});
-					totalRevenue += boughtOuterwearArr.get(i).getTotalCost();
-				}
-			
-				managerSalesHistoryBottomRevenue.setText("Total Revenue: $" + String.valueOf(totalRevenue));
-			}
+
+		        // To fill the table
+		        totalRevenue = fillSalesTable(boughtHatArr, "Hat", totalRevenue);
+		        totalRevenue = fillSalesTable(boughtShirtArr, "Shirt", totalRevenue);
+		        totalRevenue = fillSalesTable(boughtTrouserArr, "Trouser", totalRevenue);
+		        totalRevenue = fillSalesTable(boughtOuterwearArr, "Outerwear", totalRevenue);
+
+		        managerSalesHistoryBottomRevenue.setText("Total Revenue: $" + totalRevenue);
+		    }
+
+		    private int fillSalesTable(List<? extends FashionItem> itemList, String category, int totalRevenue) {
+		        for (FashionItem item : itemList) {
+		            historySalesModel.addRow(new Object[]{category, item.getName(), item.getChosenType(), item.getTotalCost()});
+		            totalRevenue += item.getTotalCost();
+		        }
+		        return totalRevenue;
+		    }
 		});
 		
 		// EXPORT SALES BUTTON
 		managerSalesHistoryExportBtn.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				
-				// If there is nothing, then cannot export
-				if(boughtHatArr.size() == 0 && boughtShirtArr.size() == 0 && boughtTrouserArr.size() == 0 && boughtOuterwearArr.size() == 0) {
-					JOptionPane.showMessageDialog(null, "You cannot export if there is nothing."
-							, "Error Message", JOptionPane.ERROR_MESSAGE);	
-				}else {
-					// Write every single purchase done (boughtHatArr receives the purchases after confirm purchase from shopping cart tab)
-					try (BufferedWriter writer = new BufferedWriter(new FileWriter("SalesHistory.txt"))) {
-						
-						for(int i = 0; i < boughtHatArr.size(); i++) {
-							writer.write("Hats | " + boughtHatArr.get(i).getName() + " | " + boughtHatArr.get(i).getChosenType() + " | " + boughtHatArr.get(i).getTotalCost());
-							writer.newLine();
-						}
-						for(int i = 0; i < boughtShirtArr.size(); i++) {
-							writer.write("Shirts | " + boughtShirtArr.get(i).getName() + " | " + boughtShirtArr.get(i).getChosenType() + " | " + boughtShirtArr.get(i).getTotalCost());
-							writer.newLine();
-						}
-						for(int i = 0; i < boughtTrouserArr.size(); i++) {
-							writer.write("Trouser | " + boughtTrouserArr.get(i).getName() + " | " + boughtTrouserArr.get(i).getChosenType() + " | " + boughtTrouserArr.get(i).getTotalCost());
-							writer.newLine();
-						}
-						for(int i = 0; i < boughtOuterwearArr.size(); i++) {
-							writer.write("Outerwear | " + boughtOuterwearArr.get(i).getName() + " | " + boughtOuterwearArr.get(i).getChosenType() + " | " + boughtOuterwearArr.get(i).getTotalCost());
-							writer.newLine();
-						}
-						
-						writer.write(managerSalesHistoryBottomRevenue.getText());
-						
-						JOptionPane.showMessageDialog(null, "You have successfully exported the sales history to SalesHistory.txt");
-					} catch (IOException ioe) {
-						JOptionPane.showMessageDialog(null, "Export failed."
-								, "Error Message", JOptionPane.ERROR_MESSAGE);		        
-					}
+		    public void actionPerformed(ActionEvent e) {
+		        if (boughtHatArr.isEmpty() && boughtShirtArr.isEmpty() && boughtTrouserArr.isEmpty() && boughtOuterwearArr.isEmpty()) {
+		            JOptionPane.showMessageDialog(null, "You cannot export if there is nothing.", "Error Message", JOptionPane.ERROR_MESSAGE);
+		        } else {
+		            try (BufferedWriter writer = new BufferedWriter(new FileWriter("SalesHistory.txt"))) {
+		                writeSalesHistory(writer, boughtHatArr, "Hats");
+		                writeSalesHistory(writer, boughtShirtArr, "Shirts");
+		                writeSalesHistory(writer, boughtTrouserArr, "Trouser");
+		                writeSalesHistory(writer, boughtOuterwearArr, "Outerwear");
 
-				}
-			}
+		                writer.write(managerSalesHistoryBottomRevenue.getText());
+
+		                JOptionPane.showMessageDialog(null, "You have successfully exported the sales history to SalesHistory.txt");
+		            } catch (IOException ioe) {
+		                JOptionPane.showMessageDialog(null, "Export failed.", "Error Message", JOptionPane.ERROR_MESSAGE);
+		            }
+		        }
+		    }
+
+		    private void writeSalesHistory(BufferedWriter writer, List<? extends FashionItem> itemList, String category) throws IOException {
+		        for (FashionItem item : itemList) {
+		            writer.write(category + " | " + item.getName() + " | " + item.getChosenType() + " | " + item.getTotalCost());
+		            writer.newLine();
+		        }
+		    }
 		});
+
 
 		
 		
 		// MANAGER EDIT SALES FUNCTIONALITY
 		
 		// Go to edit sales tab
-				managerEditSalesBtn.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent e) {
-						tabPanel.setSelectedIndex(7);
-						
-						// Values on Combo Boxes, show
-						if(editAProductCategoryCombo.getSelectedItem().equals("Hats")) {
-							editAProductNameCombo.setModel(new DefaultComboBoxModel(new String[] {"Baseball cap", "Fedora", "Flat cap", "The Bautta"}));
-						}else if(editAProductCategoryCombo.getSelectedItem().equals("Trousers")) {
-							editAProductNameCombo.setModel(new DefaultComboBoxModel(new String[] {"Casual Black", "Gray Grid", "Luxurious Golden Shay", "Blue Floo"}));
-						}else if(editAProductCategoryCombo.getSelectedItem().equals("Shirts")) {
-							editAProductNameCombo.setModel(new DefaultComboBoxModel(new String[] {"White Basque", "Blue Maple", "Maroon Elix", "Polymorphic Fling"}));
-						}else if(editAProductCategoryCombo.getSelectedItem().equals("Outerwear")) {
-							editAProductNameCombo.setModel(new DefaultComboBoxModel(new String[] {"Blending Puffer Jacket", "Biker Leather Jacket", "Trench Coat", "Quilted Vest"}));
-						}
-						
-						
-						// Values of price, show (4 times for each category)
-						if(editAProductCategoryCombo.getSelectedItem().equals("Hats")) {
-							for(int i = 0; i < hatArr.size(); i++) {
-			        			if(hatArr.get(i).getName().equals(editAProductNameCombo.getSelectedItem())) {
-			        				changePriceTF.setText(String.valueOf(hatArr.get(i).getBasePrice()));
-			        				currentStockManagerEdit.setText("Stock: " + String.valueOf(hatArr.get(i).getStockAmount()));
-
-			        			}
-			        		}
-						}else if(editAProductCategoryCombo.getSelectedItem().equals("Trousers")) {
-							for(int i = 0; i < trouserArr.size(); i++) {
-			        			if(trouserArr.get(i).getName().equals(editAProductNameCombo.getSelectedItem())) {
-			        				changePriceTF.setText(String.valueOf(trouserArr.get(i).getBasePrice()));
-			        				currentStockManagerEdit.setText("Stock: " + String.valueOf(trouserArr.get(i).getStockAmount()));
-
-			        			}
-			        		}
-						}else if(editAProductCategoryCombo.getSelectedItem().equals("Shirts")) {
-							for(int i = 0; i < shirtArr.size(); i++) {
-			        			if(shirtArr.get(i).getName().equals(editAProductNameCombo.getSelectedItem())) {
-			        				changePriceTF.setText(String.valueOf(shirtArr.get(i).getBasePrice()));
-			        				currentStockManagerEdit.setText("Stock: " + String.valueOf(shirtArr.get(i).getStockAmount()));
-
-			        			}
-			        		}
-						}else if(editAProductCategoryCombo.getSelectedItem().equals("Outerwear")) {
-							for(int i = 0; i < outerwearArr.size(); i++) {
-			        			if(outerwearArr.get(i).getName().equals(editAProductNameCombo.getSelectedItem())) {
-			        				changePriceTF.setText(String.valueOf(outerwearArr.get(i).getBasePrice()));
-			        				currentStockManagerEdit.setText("Stock: " + String.valueOf(outerwearArr.get(i).getStockAmount()));
-
-			        			}
-			        		}
-						}
-					}
-				});
+		managerEditSalesBtn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				      tabPanel.setSelectedIndex(7);
+				      updateProductDetails();
+			}
+		});
 				
 		managerEditAProductBackBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -1933,188 +1485,135 @@ public class Main extends JFrame {
 		// When Combo Box of Category is changed, update the UI
 		editAProductCategoryCombo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
-				// Value on Combo Box
-				if(editAProductCategoryCombo.getSelectedItem().equals("Hats")) {
-					editAProductNameCombo.setModel(new DefaultComboBoxModel(new String[] {"Baseball cap", "Fedora", "Flat cap", "The Bautta"}));
-				}else if(editAProductCategoryCombo.getSelectedItem().equals("Trousers")) {
-					editAProductNameCombo.setModel(new DefaultComboBoxModel(new String[] {"Casual Black", "Gray Grid", "Luxurious Golden Shay", "Blue Floo"}));
-				}else if(editAProductCategoryCombo.getSelectedItem().equals("Shirts")) {
-					editAProductNameCombo.setModel(new DefaultComboBoxModel(new String[] {"White Basque", "Blue Maple", "Maroon Elix", "Polymorphic Fling"}));
-				}else if(editAProductCategoryCombo.getSelectedItem().equals("Outerwear")) {
-					editAProductNameCombo.setModel(new DefaultComboBoxModel(new String[] {"Blending Puffer Jacket", "Biker Leather Jacket", "Trench Coat", "Quilted Vest"}));
-				}
-				
-				// Price and Stock
-				if(editAProductCategoryCombo.getSelectedItem().equals("Hats")) {
-					for(int i = 0; i < hatArr.size(); i++) {
-	        			if(hatArr.get(i).getName().equals(editAProductNameCombo.getSelectedItem())) {
-	        				changePriceTF.setText(String.valueOf(hatArr.get(i).getBasePrice()));
-	        				currentStockManagerEdit.setText("Stock: " + String.valueOf(hatArr.get(i).getStockAmount()));
-	        			}
-	        		}
-				}else if(editAProductCategoryCombo.getSelectedItem().equals("Trousers")) {
-					for(int i = 0; i < trouserArr.size(); i++) {
-	        			if(trouserArr.get(i).getName().equals(editAProductNameCombo.getSelectedItem())) {
-	        				changePriceTF.setText(String.valueOf(trouserArr.get(i).getBasePrice()));
-	        				currentStockManagerEdit.setText("Stock: " + String.valueOf(trouserArr.get(i).getStockAmount()));
-	        			}
-	        		}
-				}else if(editAProductCategoryCombo.getSelectedItem().equals("Shirts")) {
-					for(int i = 0; i < shirtArr.size(); i++) {
-	        			if(shirtArr.get(i).getName().equals(editAProductNameCombo.getSelectedItem())) {
-	        				changePriceTF.setText(String.valueOf(shirtArr.get(i).getBasePrice()));
-	        				currentStockManagerEdit.setText("Stock: " + String.valueOf(shirtArr.get(i).getStockAmount()));
-	        			}
-	        		}
-				}else if(editAProductCategoryCombo.getSelectedItem().equals("Outerwear")) {
-					for(int i = 0; i < outerwearArr.size(); i++) {
-	        			if(outerwearArr.get(i).getName().equals(editAProductNameCombo.getSelectedItem())) {
-	        				changePriceTF.setText(String.valueOf(outerwearArr.get(i).getBasePrice()));
-	        				currentStockManagerEdit.setText("Stock: " + String.valueOf(outerwearArr.get(i).getStockAmount()));
-	        			}
-	        		}
-				}				
+				updateProductDetails();
 			}
 		});		
 		
 		// When name changes, update the UI
 		editAProductNameCombo.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				// Price and Stock
-				if(editAProductCategoryCombo.getSelectedItem().equals("Hats")) {
-					for(int i = 0; i < hatArr.size(); i++) {
-	        			if(hatArr.get(i).getName().equals(editAProductNameCombo.getSelectedItem())) {
-	        				changePriceTF.setText(String.valueOf(hatArr.get(i).getBasePrice()));
-	        				currentStockManagerEdit.setText("Stock: " + String.valueOf(hatArr.get(i).getStockAmount()));
-	        			}
-	        		}
-				}else if(editAProductCategoryCombo.getSelectedItem().equals("Trousers")) {
-					for(int i = 0; i < trouserArr.size(); i++) {
-	        			if(trouserArr.get(i).getName().equals(editAProductNameCombo.getSelectedItem())) {
-	        				changePriceTF.setText(String.valueOf(trouserArr.get(i).getBasePrice()));
-	        				currentStockManagerEdit.setText("Stock: " + String.valueOf(trouserArr.get(i).getStockAmount()));
-	        			}
-	        		}
-				}else if(editAProductCategoryCombo.getSelectedItem().equals("Shirts")) {
-					for(int i = 0; i < shirtArr.size(); i++) {
-	        			if(shirtArr.get(i).getName().equals(editAProductNameCombo.getSelectedItem())) {
-	        				changePriceTF.setText(String.valueOf(shirtArr.get(i).getBasePrice()));
-	        				currentStockManagerEdit.setText("Stock: " + String.valueOf(shirtArr.get(i).getStockAmount()));
-	        			}
-	        		}
-				}else if(editAProductCategoryCombo.getSelectedItem().equals("Outerwear")) {
-					for(int i = 0; i < outerwearArr.size(); i++) {
-	        			if(outerwearArr.get(i).getName().equals(editAProductNameCombo.getSelectedItem())) {
-	        				changePriceTF.setText(String.valueOf(outerwearArr.get(i).getBasePrice()));
-	        				currentStockManagerEdit.setText("Stock: " + String.valueOf(outerwearArr.get(i).getStockAmount()));
-	        			}
-	        		}
-				}
-								
-			}
+		    public void actionPerformed(ActionEvent e) {
+		        String selectedCategory = (String) editAProductCategoryCombo.getSelectedItem();
+		        String selectedProduct = (String) editAProductNameCombo.getSelectedItem();
+		        
+		        List<? extends FashionItem> selectedProductList = null;
+
+		        if (selectedCategory.equals("Hats")) {
+		            selectedProductList = hatArr;
+		        } else if (selectedCategory.equals("Trousers")) {
+		            selectedProductList = trouserArr;
+		        } else if (selectedCategory.equals("Shirts")) {
+		            selectedProductList = shirtArr;
+		        } else if (selectedCategory.equals("Outerwear")) {
+		            selectedProductList = outerwearArr;
+		        }
+
+		        if (selectedProductList != null) {
+		            for (FashionItem item : selectedProductList) {
+		                if (item.getName().equals(selectedProduct)) {
+		                    changePriceTF.setText(String.valueOf(item.getBasePrice()));
+		                    currentStockManagerEdit.setText("Stock: " + String.valueOf(item.getStockAmount()));
+		                    break;
+		                }
+		            }
+		        }
+		    }
 		});
+
 		
 		// When add stock is pressed, add 1 stock to the database (the respective categories' array)
 		addStockManagerEditBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
-				if(editAProductCategoryCombo.getSelectedItem().equals("Hats")) {
-					for(int i = 0; i < hatArr.size(); i++) {
-	        			if(hatArr.get(i).getName().equals(editAProductNameCombo.getSelectedItem())) {
-	        				hatArr.get(i).setStockAmount(hatArr.get(i).getStockAmount()+1);
-	        				currentStockManagerEdit.setText("Stock: " + String.valueOf(hatArr.get(i).getStockAmount()));
-	        			}
-	        		}
-				}else if(editAProductCategoryCombo.getSelectedItem().equals("Trousers")) {
-					for(int i = 0; i < trouserArr.size(); i++) {
-	        			if(trouserArr.get(i).getName().equals(editAProductNameCombo.getSelectedItem())) {
-	        				trouserArr.get(i).setStockAmount(trouserArr.get(i).getStockAmount()+1);
-	        				currentStockManagerEdit.setText("Stock: " + String.valueOf(trouserArr.get(i).getStockAmount()));
-	        			}
-	        		}
-				}else if(editAProductCategoryCombo.getSelectedItem().equals("Shirts")) {
-					for(int i = 0; i < shirtArr.size(); i++) {
-	        			if(shirtArr.get(i).getName().equals(editAProductNameCombo.getSelectedItem())) {
-	        				shirtArr.get(i).setStockAmount(shirtArr.get(i).getStockAmount()+1);
-	        				currentStockManagerEdit.setText("Stock: " + String.valueOf(shirtArr.get(i).getStockAmount()));
-	        			}
-	        		}
-				}else if(editAProductCategoryCombo.getSelectedItem().equals("Outerwear")) {
-					for(int i = 0; i < outerwearArr.size(); i++) {
-	        			if(outerwearArr.get(i).getName().equals(editAProductNameCombo.getSelectedItem())) {
-	        				outerwearArr.get(i).setStockAmount(outerwearArr.get(i).getStockAmount()+1);
-	        				currentStockManagerEdit.setText("Stock: " + String.valueOf(outerwearArr.get(i).getStockAmount()));
-	        			}
-	        		}
+				List<? extends FashionItem> selectedProductList = null;
+
+				if (editAProductCategoryCombo.getSelectedItem().equals("Hats")) {
+				    selectedProductList = hatArr;
+				} else if (editAProductCategoryCombo.getSelectedItem().equals("Trousers")) {
+				    selectedProductList = trouserArr;
+				} else if (editAProductCategoryCombo.getSelectedItem().equals("Shirts")) {
+				    selectedProductList = shirtArr;
+				} else if (editAProductCategoryCombo.getSelectedItem().equals("Outerwear")) {
+				    selectedProductList = outerwearArr;
+				}
+
+				if (selectedProductList != null) {
+				    for (FashionItem item : selectedProductList) {
+				        if (item.getName().equals(editAProductNameCombo.getSelectedItem())) {
+				            item.setStockAmount(item.getStockAmount() + 1);
+				            currentStockManagerEdit.setText("Stock: " + String.valueOf(item.getStockAmount()));
+				            break;
+				        }
+				    }
 				}
 			}
 		});
 		
 		// When change price button is pressed, set new price to the product (error checking if not num)
 		changePriceManagerEditBtn.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				// Price
-				if(editAProductCategoryCombo.getSelectedItem().equals("Hats")) {
-					for(int i = 0; i < hatArr.size(); i++) {
-	        			if(hatArr.get(i).getName().equals(editAProductNameCombo.getSelectedItem())) {
-	        				
-	        				try {
-	    		    			Double.parseDouble(changePriceTF.getText());
-	    		    			hatArr.get(i).setBasePrice(Integer.parseInt(changePriceTF.getText()));
-		        		        JOptionPane.showMessageDialog(null, "You have successfully edited the product's price");
-	        				} catch(NumberFormatException nfe) {
-	        					JOptionPane.showMessageDialog(null, "Please only input a number for the price"
-	        							, "Error Message", JOptionPane.ERROR_MESSAGE);
-	        				}
-	        				
-	        			}
-	        		}
-				}else if(editAProductCategoryCombo.getSelectedItem().equals("Trousers")) {
-					for(int i = 0; i < trouserArr.size(); i++) {
-	        			if(trouserArr.get(i).getName().equals(editAProductNameCombo.getSelectedItem())) {
-	        				try {
-	    		    			Double.parseDouble(changePriceTF.getText());
-	    		    			trouserArr.get(i).setBasePrice(Integer.parseInt(changePriceTF.getText()));
-		        		        JOptionPane.showMessageDialog(null, "You have successfully edited the product's price");
-	        				} catch(NumberFormatException nfe) {
-	        					JOptionPane.showMessageDialog(null, "Please only input a number for the price"
-	        							, "Error Message", JOptionPane.ERROR_MESSAGE);
-	        				}	        			
-	        			}
-	        		}
-				}else if(editAProductCategoryCombo.getSelectedItem().equals("Shirts")) {
-					for(int i = 0; i < shirtArr.size(); i++) {
-	        			if(shirtArr.get(i).getName().equals(editAProductNameCombo.getSelectedItem())) {
-	        				
-	        				try {
-	    		    			Double.parseDouble(changePriceTF.getText());
-	    		    			shirtArr.get(i).setBasePrice(Integer.parseInt(changePriceTF.getText()));
-		        		        JOptionPane.showMessageDialog(null, "You have successfully edited the product's price");
-	        				} catch(NumberFormatException nfe) {
-	        					JOptionPane.showMessageDialog(null, "Please only input a number for the price"
-	        							, "Error Message", JOptionPane.ERROR_MESSAGE);
-	        				}
-	        				
-	        			}
-	        		}
-				}else if(editAProductCategoryCombo.getSelectedItem().equals("Outerwear")) {
-					for(int i = 0; i < outerwearArr.size(); i++) {
-	        			if(outerwearArr.get(i).getName().equals(editAProductNameCombo.getSelectedItem())) {
-	        				
-	        				try {
-	    		    			Double.parseDouble(changePriceTF.getText());
-	    		    			outerwearArr.get(i).setBasePrice(Integer.parseInt(changePriceTF.getText()));
-		        		        JOptionPane.showMessageDialog(null, "You have successfully edited the product's price");
-	        				} catch(NumberFormatException nfe) {
-	        					JOptionPane.showMessageDialog(null, "Please only input a number for the price"
-	        							, "Error Message", JOptionPane.ERROR_MESSAGE);
-	        				}
-	        				
-	        			}
-	        		}
-				}
-			}
+		    public void actionPerformed(ActionEvent e) {
+		        String category = editAProductCategoryCombo.getSelectedItem().toString();
+		        String productName = editAProductNameCombo.getSelectedItem().toString();
+		        int newPrice;
+
+		        try {
+		            newPrice = Integer.parseInt(changePriceTF.getText());
+		        } catch (NumberFormatException nfe) {
+		            JOptionPane.showMessageDialog(null, "Please only input a number for the price",
+		                    "Error Message", JOptionPane.ERROR_MESSAGE);
+		            return;
+		        }
+
+		        boolean found = false;
+
+		        switch (category) {
+		            case "Hats":
+		                for (Hats hat : hatArr) {
+		                    if (hat.getName().equals(productName)) {
+		                        hat.setBasePrice(newPrice);
+		                        found = true;
+		                        break;
+		                    }
+		                }
+		                break;
+
+		            case "Trousers":
+		                for (Trousers trouser : trouserArr) {
+		                    if (trouser.getName().equals(productName)) {
+		                        trouser.setBasePrice(newPrice);
+		                        found = true;
+		                        break;
+		                    }
+		                }
+		                break;
+
+		            case "Shirts":
+		                for (Shirt shirt : shirtArr) {
+		                    if (shirt.getName().equals(productName)) {
+		                        shirt.setBasePrice(newPrice);
+		                        found = true;
+		                        break;
+		                    }
+		                }
+		                break;
+
+		            case "Outerwear":
+		                for (Outerwear outerwear : outerwearArr) {
+		                    if (outerwear.getName().equals(productName)) {
+		                        outerwear.setBasePrice(newPrice);
+		                        found = true;
+		                        break;
+		                    }
+		                }
+		                break;
+		        }
+
+		        if (found) {
+		            JOptionPane.showMessageDialog(null, "You have successfully edited the product's price");
+		        } else {
+		            JOptionPane.showMessageDialog(null, "Product not found",
+		                    "Error Message", JOptionPane.ERROR_MESSAGE);
+		        }
+		    }
 		});
 		
 		managerSalesHistoryBackBtn.addActionListener(new ActionListener() {
@@ -2125,9 +1624,166 @@ public class Main extends JFrame {
 			}
 		});
 		
-
-		
 	}
+	
+
+	// FUNCTION
+	
+	public void setProductAttributes(ArrayList<? extends FashionItem> productList, FashionItem chosenProduct) {
+	    tabPanel.setSelectedIndex(2);
+
+	    viewingProductImage.setText(chosenProduct.getImage());
+	    viewingProductName.setText(chosenProduct.getName());
+	    viewingProductStock.setText("Stock left: " + String.valueOf(chosenProduct.getStockAmount()));
+	    viewingProductDesc.setText(chosenProduct.getDescription());
+	    viewingProductPrice.setText("Price: $" + String.valueOf(chosenProduct.getBasePrice()));
+	    viewingProductType1.setSelected(true);
+	    viewingProductType2.setSelected(false);
+	    viewingProductType3.setSelected(false);
+
+	    // Set product type options based on the chosen product type
+	    if (chosenProduct instanceof Hats) {
+	        viewingProductType1.setText("three-d printed (+$0)");
+	        viewingProductType2.setText("machine sewn (+$10)");
+	        viewingProductType3.setText("handmade (+$30)");
+	        numberOnlyForPrice = chosenProduct.getBasePrice();
+	    } else if (chosenProduct instanceof Trousers) {
+	        viewingProductType1.setText("cotton (+$0)");
+	        viewingProductType2.setText("wool (+$20)");
+	        viewingProductType3.setText("refined denim (+$40)");
+	        numberOnlyForPrice = chosenProduct.getBasePrice();
+	    } else if (chosenProduct instanceof Shirt) {
+	        viewingProductType1.setText("polyester (+$0)");
+	        viewingProductType2.setText("linen (+$15)");
+	        viewingProductType3.setText("silk (+$30)");
+	        numberOnlyForPrice = chosenProduct.getBasePrice();
+	    } else if (chosenProduct instanceof Outerwear) {
+	        viewingProductType1.setText("pre-made (+$0)");
+	        viewingProductType2.setText("junior tailored (+$20)");
+	        viewingProductType3.setText("senior tailored (+$100)");
+	        numberOnlyForPrice = chosenProduct.getBasePrice();
+	    }
+	}
+	
+	private void showShoppingCart(DefaultTableModel shoppingCartModel) {
+	    tabPanel.setSelectedIndex(4);
+	    int totalPrice = 0;
+
+	    // To clear everything
+	    while (shoppingCartModel.getRowCount() > 0) {
+	        shoppingCartModel.removeRow(0);
+	    }
+
+	    // To fill the table
+	    for (FashionItem item : shoppingCartHatArr) {
+	        shoppingCartModel.addRow(new Object[]{"Hat", item.getName(), item.getChosenType(), item.getTotalCost()});
+	        totalPrice += item.getTotalCost();
+	    }
+	    for (FashionItem item : shoppingCartShirtArr) {
+	        shoppingCartModel.addRow(new Object[]{"Shirt", item.getName(), item.getChosenType(), item.getTotalCost()});
+	        totalPrice += item.getTotalCost();
+	    }
+	    for (FashionItem item : shoppingCartTrouserArr) {
+	        shoppingCartModel.addRow(new Object[]{"Trouser", item.getName(), item.getChosenType(), item.getTotalCost()});
+	        totalPrice += item.getTotalCost();
+	    }
+	    for (FashionItem item : shoppingCartOuterwearArr) {
+	        shoppingCartModel.addRow(new Object[]{"Outerwear", item.getName(), item.getChosenType(), item.getTotalCost()});
+	        totalPrice += item.getTotalCost();
+	    }
+
+	    // To set the total price
+	    shoppingCartTotal.setText("Total: $" + totalPrice);
+	}
+	
+	private void updateProductDetails() {
+	    // Values on Combo Boxes, show
+	    if (editAProductCategoryCombo.getSelectedItem().equals("Hats")) {
+	        editAProductNameCombo.setModel(new DefaultComboBoxModel(new String[]{"Baseball cap", "Fedora", "Flat cap", "The Bautta"}));
+	    } else if (editAProductCategoryCombo.getSelectedItem().equals("Trousers")) {
+	        editAProductNameCombo.setModel(new DefaultComboBoxModel(new String[]{"Casual Black", "Gray Grid", "Luxurious Golden Shay", "Blue Floo"}));
+	    } else if (editAProductCategoryCombo.getSelectedItem().equals("Shirts")) {
+	        editAProductNameCombo.setModel(new DefaultComboBoxModel(new String[]{"White Basque", "Blue Maple", "Maroon Elix", "Polymorphic Fling"}));
+	    } else if (editAProductCategoryCombo.getSelectedItem().equals("Outerwear")) {
+	        editAProductNameCombo.setModel(new DefaultComboBoxModel(new String[]{"Blending Puffer Jacket", "Biker Leather Jacket", "Trench Coat", "Quilted Vest"}));
+	    }
+
+	    // Values of price, show (4 times for each category)
+	    if (editAProductCategoryCombo.getSelectedItem().equals("Hats")) {
+	        for (FashionItem item : hatArr) {
+	            if (item.getName().equals(editAProductNameCombo.getSelectedItem())) {
+	                changePriceTF.setText(String.valueOf(item.getBasePrice()));
+	                currentStockManagerEdit.setText("Stock: " + String.valueOf(item.getStockAmount()));
+	            }
+	        }
+	    } else if (editAProductCategoryCombo.getSelectedItem().equals("Trousers")) {
+	        for (FashionItem item : trouserArr) {
+	            if (item.getName().equals(editAProductNameCombo.getSelectedItem())) {
+	                changePriceTF.setText(String.valueOf(item.getBasePrice()));
+	                currentStockManagerEdit.setText("Stock: " + String.valueOf(item.getStockAmount()));
+	            }
+	        }
+	    } else if (editAProductCategoryCombo.getSelectedItem().equals("Shirts")) {
+	        for (FashionItem item : shirtArr) {
+	            if (item.getName().equals(editAProductNameCombo.getSelectedItem())) {
+	                changePriceTF.setText(String.valueOf(item.getBasePrice()));
+	                currentStockManagerEdit.setText("Stock: " + String.valueOf(item.getStockAmount()));
+	            }
+	        }
+	    } else if (editAProductCategoryCombo.getSelectedItem().equals("Outerwear")) {
+	        for (FashionItem item : outerwearArr) {
+	            if (item.getName().equals(editAProductNameCombo.getSelectedItem())) {
+	                changePriceTF.setText(String.valueOf(item.getBasePrice()));
+	                currentStockManagerEdit.setText("Stock: " + String.valueOf(item.getStockAmount()));
+	            }
+	        }
+	    }
+	}
+	
+    private class CategoryButtonListener implements ActionListener {
+        private final String categoryName;
+        private final ArrayList<? extends FashionItem> categoryArr;
+
+        public CategoryButtonListener(String categoryName, ArrayList<? extends FashionItem> categoryArr) {
+            this.categoryName = categoryName;
+            this.categoryArr = categoryArr;
+        }
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            tabPanel.setSelectedIndex(3);
+            specificCategoryTitle.setText(categoryName);
+
+            for (int i = 0; i < 4; i++) {
+                clearProductPanel(panelList.get(i));
+            }
+
+            for (int i = 0; i < categoryArr.size(); i++) {
+                FashionItem item = categoryArr.get(i);
+                JPanel panel = panelList.get(i);
+                setProductAttributes(panel, item.getImage(), item.getName());
+                specificCategoryMainPanel.add(panel);
+            }
+
+            // Revalidate and repaint the container
+            specificCategoryMainPanel.revalidate();
+            specificCategoryMainPanel.repaint();
+        }
+
+        private void clearProductPanel(JPanel panel) {
+            JLabel scPanelImage = (JLabel) panel.getComponent(0);
+            JLabel scName = (JLabel) panel.getComponent(1);
+            scPanelImage.setText("");
+            scName.setText("");
+        }
+
+        private void setProductAttributes(JPanel panel, String productImage, String productName) {
+            JLabel scPanelImage = (JLabel) panel.getComponent(0);
+            JLabel scName = (JLabel) panel.getComponent(1);
+            scPanelImage.setText(productImage);
+            scName.setText(productName);
+        }
+    }
 	
 	
 	public static void main(String[] args) {
@@ -2135,6 +1791,7 @@ public class Main extends JFrame {
 		ui.setVisible(true);
 		
 	}
+	
 }
 
 
@@ -2145,6 +1802,8 @@ class managerLoginException extends Exception {
 
     }
 }				
+
+
 
 
 
