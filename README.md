@@ -7,7 +7,6 @@ An online fashion store app made in Java.
 ----
 ### Project Characteristics
 * Made with Java
-* Around 2000 lines of code
 ----
 ### Project Weaknesses
 * A lot of code duplication.
